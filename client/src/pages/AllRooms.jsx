@@ -5,7 +5,7 @@ import StarRating from "../components/StarRating";
 
 const CheckBox = ({label, selected = false, onChange = () => { }})=>{
   return (
-    <label className="fles gap-3 items-center cursor-pointer mt-2 text-sm">
+    <label className="flex gap-3 items-center cursor-pointer mt-2 text-sm">
       <input type="checkbox" checked={selected} onChange={(e)=>onChange(e.target.checked, label)} />
       <span className="font-light select-none">{label}</span>
     </label>
@@ -14,7 +14,7 @@ const CheckBox = ({label, selected = false, onChange = () => { }})=>{
 
 const RadioButton = ({label, selected = false, onChange = () => { }})=>{
   return (
-    <label className="fles gap-3 items-center cursor-pointer mt-2 text-sm">
+    <label className="flex gap-3 items-center cursor-pointer mt-2 text-sm">
       <input type="radio" name="sortOption" checked={selected} onChange={()=>onChange(label)} />
       <span className="font-light select-none">{label}</span>
     </label>
@@ -39,7 +39,7 @@ const AllRooms = () => {
   ];
 
   const sortOptions = [
-    "Price Low to Hight",
+    "Price Low to High",
     "Price High to Low",
     "Newset First",
   ];
@@ -54,7 +54,7 @@ const AllRooms = () => {
           <h1 className="font-playfair text-4xl md:text-[40px]">Hotel Rooms</h1>
           <p className="text-sm md:text-base text-gray-500/90 mt-2 max-w-174">
             Take advantage of our limited-time offers and special packages to
-            enhance your stay and create unforgettable memories
+            enhance your stay and create unforgettable memories.
           </p>
         </div>
 
@@ -127,7 +127,7 @@ const AllRooms = () => {
               onClick={() => setOpenFilters(!openFilters)}
               className="lg:hidden"
             >
-              {" "}
+              
               {openFilters ? "HIDE" : "SHOW"}
             </span>
             <span className="hidden lg:block">CLEAR</span>
@@ -151,7 +151,7 @@ const AllRooms = () => {
             ))}
           </div>
 
-          <div className="px-5 pt-5">
+          <div className="px-5 pt-5 pb-7">
             <p className="font-medium text-gray-800 pb-2">Sort By</p>
             {sortOptions.map((option, index)=>(
               <RadioButton key={index} label={option}/>
