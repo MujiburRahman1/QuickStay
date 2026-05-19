@@ -20,7 +20,7 @@ const AllRooms = () => {
         </div>
 
         {roomsDummyData.map(
-          (room = (
+          (room => (
             <div>
               <img
                 onClick={() => {navigate(`/rooms/${room._id}`); scrollTo(0,0)}}
