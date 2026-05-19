@@ -59,6 +59,9 @@ const RoomDetails = () => {
               ))}
           </div>
         </div>
+        {/* Room Highlights */}
+        <div></div>
+
       </div>
     )
   );
