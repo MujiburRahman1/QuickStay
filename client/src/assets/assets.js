@@ -51,7 +51,7 @@ export const assets = {
     instagramIcon,
     facebookIcon,
     twitterIcon,
-    linkedinIcon,
+    linkendinIcon,
     freeWifiIcon,
     freeBreakfastIcon,
     roomServiceIcon,
