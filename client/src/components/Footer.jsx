@@ -13,22 +13,30 @@ const Footer = () => {
           </p>
           <div className="flex items-center gap-3 mt-4">
             {/* Instagram */}
-            <img src={assets.instagramIcon} alt="instagram-icon"
-            className="w-6" />
+            <img
+              src={assets.instagramIcon}
+              alt="instagram-icon"
+              className="w-6"
+            />
             {/* Facebook */}
-            <img src={assets.facebookIcon} alt="facebook-icon"
-            className="w-6" />
+            <img
+              src={assets.facebookIcon}
+              alt="facebook-icon"
+              className="w-6"
+            />
             {/* Twitter */}
-            <img src={assets.twitterIcon} alt="twitter-icon"
-            className="w-6" />
+            <img src={assets.twitterIcon} alt="twitter-icon" className="w-6" />
             {/* LinkedIn */}
-            <img src={assets.linkedinIcon} alt="linkedin-icon"
-            className="w-6" />
+            <img
+              src={assets.linkedinIcon}
+              alt="linkedin-icon"
+              className="w-6"
+            />
           </div>
         </div>
 
         <div>
-          <p className="text-lg text-gray-800">COMPANY</p>
+          <p className="font-playfair text-lg text-gray-800">COMPANY</p>
           <ul className="mt-3 flex flex-col gap-2 text-sm">
             <li>
               <a href="#">About</a>
@@ -49,7 +57,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <p className="text-lg text-gray-800">SUPPORT</p>
+          <p className="font-playfair text-lg text-gray-800">SUPPORT</p>
           <ul className="mt-3 flex flex-col gap-2 text-sm">
             <li>
               <a href="#">Help Center</a>
@@ -70,7 +78,7 @@ const Footer = () => {
         </div>
 
         <div className="max-w-80">
-          <p className="text-lg text-gray-800">STAY UPDATED</p>
+          <p className="font-playfair text-lg text-gray-800">STAY UPDATED</p>
           <p className="mt-3 text-sm">
             Subscribe to our newsletter for inspiration and special offers.
           </p>
@@ -82,23 +90,7 @@ const Footer = () => {
             />
             <button className="flex items-center justify-center bg-black h-9 w-9 aspect-square rounded-r">
               {/* Arrow icon */}
-              <svg
-                className="w-4 h-4 text-white"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M19 12H5m14 0-4 4m4-4-4-4"
-                />
-              </svg>
+              <img src={assets.arrowIcon} alt="arrow-icon" className="w-3.5 invert" />
             </button>
           </div>
         </div>
@@ -107,7 +99,7 @@ const Footer = () => {
       <div className="flex flex-col md:flex-row gap-2 items-center justify-between py-5">
         <p>
           © {new Date().getFullYear()}{" "}
-          <a href="https://prebuiltui.com">PrebuiltUI</a>. All rights reserved.
+          Mujib ur Rahman. All rights reserved.
         </p>
         <ul className="flex items-center gap-4">
           <li>
