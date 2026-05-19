@@ -152,9 +152,9 @@ const AllRooms = () => {
           </div>
 
           <div className="px-5 pt-5">
-            <p className="font-medium text-gray-800 pb-2">Popular Filters</p>
-            {roomTypes.map((room, index)=>(
-              <CheckBox key={index} label={room}/>
+            <p className="font-medium text-gray-800 pb-2">Sort By</p>
+            {sortOptions.map((room, index)=>(
+              <RadioButton key={index} label={option}/>
             ))}
           </div>
         </div>
