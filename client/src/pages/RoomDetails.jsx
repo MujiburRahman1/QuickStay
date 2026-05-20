@@ -116,7 +116,7 @@ const RoomDetails = () => {
         </form>
 
         {/* Common Specifications */}
-        <div>
+        <div className="mt-25 space-y-4">
           {roomCommonData.map((spec, index)=>(
             <div key={index} className="flex items-start gap-2">
               <img src={spec.icon} alt={`${spec.title}-icon`} className="w-6.5"/>
