@@ -135,14 +135,14 @@ const RoomDetails = () => {
         </div>
 
         {/* Hosted by */}
-        <div className="flex flex-col items-start gap-4">
-          <div className="flex gap-4">
-            <img src={room.hotel.owner.image} alt="Host" className="h-14 w-14 md:h-18 md:w-18 rounded-full" />
+        <div className="flex flex-col items-start gap-4 mt-10">
+          <div className="flex gap-4 items-start">
+            <img src={room.hotel.owner.image} alt="Host" className="h-16 w-16 md:h-20 md:w-20 rounded-full object-cover shadow-md" />
             <div>
-              <p className="text-lg md:text-xl">Hosted by {room.hotel.name}</p>
-              <div className="flex items-center mt-1">
+              <p className="text-lg md:text-xl font-medium">Hosted by {room.hotel.name}</p>
+              <div className="flex items-center mt-2">
                 <StarRating/>
-                <p className="ml-2">200+ reviews</p>
+                <p className="ml-2 text-sm">200+ reviews</p>
               </div>
             </div>
           </div>
