@@ -139,8 +139,8 @@ const RoomDetails = () => {
           <div>
             <img src={room.hotel.owner.image} alt="Host" className="h-14 w-14 md:h-18 md:w-18 rounded-full" />
             <div>
-              <p>Hosted by {room.hotel.name}</p>
-              <div>
+              <p className="text-lg md:text-xl">Hosted by {room.hotel.name}</p>
+              <div className="flex items-center mt-1">
                 <StarRating/>
                 <p className="ml-2">200+ reviews</p>
               </div>
