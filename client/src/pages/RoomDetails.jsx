@@ -138,6 +138,13 @@ const RoomDetails = () => {
         <div className="flex flex-col items-start gap-4">
           <div>
             <img src={room.hotel.owner.image} alt="Host" className="h-14 w-14 md:h-18 md:w-18 rounded-full" />
+            <div>
+              <p>Hosted by {room.hotel.name}</p>
+              <div>
+                <StarRating/>
+                <p className="ml-2">200+ reviews</p>
+              </div>
+            </div>
           </div>
         </div>
 
