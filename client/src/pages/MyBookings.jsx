@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Title from "../components/Title";
-import { userBookingsDummyData } from "../assets/assets";
+import { assets, userBookingsDummyData } from "../assets/assets";
 
 const MyBookings = () => {
   const [bookings, setBookings] = useState(userBookingsDummyData);
@@ -21,11 +21,27 @@ const MyBookings = () => {
         </div>
 
         {bookings.map((booking) => (
-          <div key={booking._id} className="grid grid-cols-1 md:grid-cols-[3fr_2fr_1fr] w-full border-b border-gray-300 py-6 first:border-t">
+          <div
+            key={booking._id}
+            className="grid grid-cols-1 md:grid-cols-[3fr_2fr_1fr] w-full border-b border-gray-300 py-6 first:border-t"
+          >
             {/* ----- Hotel Details ----- */}
             <div>
-                <img src={booking.room.images[0]} alt="hotel-img"
-                className="min-md:w-44 rounded shadow object-cover" />
+              <img
+                src={booking.room.images[0]}
+                alt="hotel-img"
+                className="min-md:w-44 rounded shadow object-cover"
+              />
+              <div>
+                <p className="font-playfair text-2xl">
+                  {booking.hotel.name}
+                  <span className="font-inter text-sm">({booking.room.roomType})</span>
+                </p>
+                <div className="flex items-center gap-1 text-sm text-gray-500">
+                  <img src={assets.locationIcon} alt="location-icon" />
+                  <span>{booking.hotel.address}</span>
+                </div>
+              </div>
             </div>
             {/* ----- Date & Timeings ----- */}
             <div></div>
