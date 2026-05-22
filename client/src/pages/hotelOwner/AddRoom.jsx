@@ -74,7 +74,7 @@ const AddRoom = () => {
           <div key={index}>
             <input type="checkbox" id={`amenities${index+1}`} checked={inputs.amenities[amenity]}
             onChange={()=>setInputs({...inputs, amenities: {...inputs.amenities, [amenity]: !inputs.amenities[amenity]}})} />
-
+            <label htmlFor={`amenities${index+1}`}>{amenity}</label>
           </div>
         ))}
 
