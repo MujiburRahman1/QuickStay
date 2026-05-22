@@ -38,6 +38,7 @@ const AddRoom = () => {
           <label htmlFor={`roomImage${key}`} key={key}>
             <img className="max-h-13 cursor-pointer opacity-80"
             src={images[key] ? URL.createObjectURL(images[key]) : assets.uploadArea} alt="" />
+            <input type="file" accept="image/*" id={`roomImage${key}`} hidden />
           </label>
         ))}
       </div>
