@@ -63,6 +63,7 @@ const AddRoom = () => {
           <p className="mt-4 text-gray-800">
             Price <span className="text-xs">/night</span>
           </p>
+          <input type="number" placeholder="0" className="border border-gray-300 mt-1 rounded p-2 rounded p-2 w-24" />
         </div>
 
       </div>
