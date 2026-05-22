@@ -28,16 +28,27 @@ const clerkWehooks = async (req, res)=>{
         // Switch Cases for different events
         switch (type) {
             case "user.created":{
-                await User.create(userData)
+                await User.create(userData);
+                break;
+            }
+
+            case "user.updated":{
+                await User.findByIdAndUpdate(data.id, userData);
                 break;
             }
                 
+            case "user.deleted":{
+                await User.findByIdAndDelete(data.id);
                 break;
+            }  
         
             default:
                 break;
         }
+        res.json({success: true, message: "Webhook Recieved"})
     } catch (error) {
+        console.log(error.message);
+        res.json({ success: false, message: error.message})
         
     }
 
