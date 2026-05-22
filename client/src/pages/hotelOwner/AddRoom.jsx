@@ -68,6 +68,10 @@ const AddRoom = () => {
         </div>
 
       </div>
+      <p className="text-gray-800 mt-4">Amenities</p>
+      <div className="flex flex-col flex-wrap mt-1 text-gray-400 max-w-sm">
+
+      </div>
     </form>
   );
 };
