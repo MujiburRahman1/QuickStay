@@ -60,6 +60,12 @@ const Dashboard = () => {
                   <td className='py-3 px-4 text-gray-700 border-t border-gray-300 text-center'>
                     $ {item.user.username}
                   </td>
+
+                  <td className='py-3 px-4 border-t border-gray-300 flex'>
+                    <button className={`py-1 px-3 text-xs rounded-full mx-auto ${}`}>
+                        {item.isPaid ? 'Completed' : 'Pending'}
+                    </button>
+                  </td>
                 </tr>
               ))}
 
