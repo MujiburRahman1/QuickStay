@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form } from "react-router-dom";
 import Title from "../../components/Title";
+import { assets } from "../../assets/assets";
 
 const AddRoom = () => {
   const [images, setImages] = useState({
@@ -35,7 +36,8 @@ const AddRoom = () => {
       <div className="grid grid-cols-2 sm:flex gap-4 my-2 flex-wrap">
         {Object.keys(images).map((key)=>(
           <label htmlFor={`roomImage${key}`} key={key}>
-            <img src={images[key] ? URL.createObjectURL(images[key])} alt="" />
+            <img className="max-h-13 cursor-pointer opacity-80"
+            src={images[key] ? URL.createObjectURL(images[key]) : assets.uploadArea} alt="" />
           </label>
         ))}
       </div>
