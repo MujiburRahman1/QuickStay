@@ -35,7 +35,13 @@ export const creatRoom = async (req, res) => {
 
 // API to get all room
 
-export const getRooms = async (req, res) => {};
+export const getRooms = async (req, res) => {
+  try {
+    const rooms =  await Room.find({isAvailable: true})
+  } catch (error) {
+    
+  }
+};
 
 // API to get all rooms for specific hotel
 export const getOwnerRooms = async (req, res) => {};
