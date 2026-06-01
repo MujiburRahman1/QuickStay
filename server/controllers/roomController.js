@@ -1,6 +1,7 @@
-import Hotel from "../models/Hotel";
+import Hotel from "../models/Hotel.js";
 
 import { v2 as cloudinary } from "cloudinary";
+import Room from "../models/Room.js";
 
 //API to create a new room for a hotel
 
@@ -16,7 +17,20 @@ export const creatRoom = async (req, res) => {
       const response =  await cloudinary.uploader.upload(file.path);
       return response.secure_url;
     });
-  } catch (error) {}
+    //  Wait for all uploads to complete
+    const images = await Promise.all(uploadImages)
+
+    await Room.create({
+      hotel: hotel._id,
+      roomType,
+      pricePerNight: +pricePerNight,
+      amenities: JSON.parse(amenities),
+      images,
+    })
+    res.json( {success: true, message: "Room created successfully"} )
+  } catch (error) {
+    res.json({ success: false, message: error.message })
+  }
 };
 
 // API to get all room
