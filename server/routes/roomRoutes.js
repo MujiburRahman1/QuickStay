@@ -1,9 +1,12 @@
 import express from "express";
 import upload from "../middleware/uploadMiddleware.js";
 import { protect } from "../middleware/authMiddleware.js";
+import { creatRoom } from "../controllers/roomController.js";
 
 
 const roomRouter = express.Router();
 
 
-roomRouter.post('/', upload.array("images", 4), protect)
+roomRouter.post('/', upload.array("images", 4), protect, creatRoom)
+
+export default roomRouter;
