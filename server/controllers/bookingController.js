@@ -47,8 +47,8 @@ export const creatBooking = async (req, res) => {
       room,
     });
 
-    if(!isAvailable){
-        return res.json({success: false, message: "Room is not available"})
+    if (!isAvailable) {
+      return res.json({ success: false, message: "Room is not available" });
     }
 
     // Get totalPrice from Room
@@ -56,11 +56,11 @@ export const creatBooking = async (req, res) => {
     let totalPrice = roomData.pricePerNight;
 
     // Calculate totalPrice based on nights
-    const checkIn = new Date(checkInDate)
-    const checkOut = new Date(checkOutDate)
+    const checkIn = new Date(checkInDate);
+    const checkOut = new Date(checkOutDate);
     const timeDiff = checkOut.getTime() - checkIn.getTime();
     const nights = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-
+    
   } catch (error) {}
 };
