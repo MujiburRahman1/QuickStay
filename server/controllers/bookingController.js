@@ -79,3 +79,7 @@ export const creatBooking = async (req, res) => {
     res.json({ success: false, message: "Failed to create booking" })
   }
 };
+
+
+// API to get all bookings for a user
+
