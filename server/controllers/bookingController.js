@@ -61,6 +61,21 @@ export const creatBooking = async (req, res) => {
     const timeDiff = checkOut.getTime() - checkIn.getTime();
     const nights = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-    
-  } catch (error) {}
+    totalPrice *= nights;
+    const booking = await Booking.create({
+        user,
+        room,
+        hotel: roomData.hotel._id,
+        guests: +guests,
+        checkInDate,
+        checkOutDate,
+        totalPrice,
+    })
+
+    res.json({ success: true, message: "Booking created successfully" })
+
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Failed to create booking" })
+  }
 };
