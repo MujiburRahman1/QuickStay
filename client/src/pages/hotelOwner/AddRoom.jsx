@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { Form } from "react-router-dom";
 import Title from "../../components/Title";
 import { assets } from "../../assets/assets";
+import toast from "react-hot-toast";
 
 const AddRoom = () => {
+
+  const {axios, getToken} = useState()
   const [images, setImages] = useState({
     1: null,
     2: null,
@@ -23,8 +26,25 @@ const AddRoom = () => {
     },
   });
 
+  const [loading, setLoading] = useState(false)
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault()
+    // Check if all inputs are filled
+    if(!inputs.roomType || !inputs.pricePerNight || !inputs.amenities || !Object.values(images).some(image => image)){
+      toast.error("Please fill in all the details")
+      return;
+    }
+    setLoading(true);
+    try {
+      const formData = new FormData()
+    } catch (error) {
+      
+    }
+  }
+
   return (
-    <form>
+    <form onSubmit={onSubmitHandler}>
       <Title
         align="left"
         font="outfit"
