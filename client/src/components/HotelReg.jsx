@@ -1,16 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { assets, cities } from '../assets/assets'
 import { useAppContext } from '../context/AppContext'
 
 const HotelReg = () => {
 
-    const {setShowHotelReg} = useAppContext()
+    const {setShowHotelReg, axios, getToken, setIsOwner} = useAppContext()
 
+    const [name, setName] = useState("")
+    const [address, setAddress] = useState("")
+    const [contact, setContact] = useState("")
+    const [city, setCity] = useState("")
 
+    const onSubmitHandler = async (event)=>{
+        try {
+            
+        } catch (error) {
+            
+        }
+    }
 
   return (
-    <div className='fixed top-0 bottom-0 left-0 right-0 z-100 flex items-center justify-center bg-black/70'>
-      <form className='flex bg-white rounded-xl max-w-4xl max-md:mx-2'>
+    <div onClick={()=> setShowHotelReg(false)} className='fixed top-0 bottom-0 left-0 right-0 z-100 flex items-center justify-center bg-black/70'>
+      <form onSubmit={onSubmitHandler} onClick={(e)=> e.stopPropagation()} className='flex bg-white rounded-xl max-w-4xl max-md:mx-2'>
         <img src={assets.regImage} alt="reg-image" className='w-1/2 rounded-xl hidden md:block' />
 
         <div className='relative flex flex-col items-center md:w-1/2  p-8 md:p-10'>
@@ -22,7 +33,8 @@ const HotelReg = () => {
                 <label htmlFor="name" className='font-medium text-gray-500'>
                     Hotel Name
                 </label>
-                <input id='name' type="text" placeholder='Type here' className='border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light'
+                <input id='name' onChange={()=> setName(e.target.value)} value={name}
+                type="text" placeholder='Type here' className='border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light'
                 required />
             </div>
             {/* Phone */}
@@ -30,7 +42,7 @@ const HotelReg = () => {
                 <label htmlFor="contact" className='font-medium text-gray-500'>
                     Phone
                 </label>
-                <input id='contact' type="text" placeholder='Type here' className='border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light'
+                <input onChange={()=> setContact(e.target.value)} value={contact} id='contact' type="text" placeholder='Type here' className='border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light'
                 required />
             </div>
 
@@ -39,7 +51,7 @@ const HotelReg = () => {
                 <label htmlFor="address" className='font-medium text-gray-500'>
                     Address
                 </label>
-                <input id='address' type="text" placeholder='Type here' className='border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light'
+                <input onChange={()=> setAddress(e.target.value)} value={address} id='address' type="text" placeholder='Type here' className='border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light'
                 required />
             </div>
             {/* Select  City Drop Down */}
@@ -47,7 +59,7 @@ const HotelReg = () => {
                 <label htmlFor="city" className='font-medium text-gray-500'>
                     City
                 </label>
-                <select id="city" className='border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light'>
+                <select onChange={()=> setCity(e.target.value)} value={city} id="city" className='border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light'>
                     <option value="">Select City</option>
                     {cities.map((city)=>(
                         <option key={city} value={city}>{city}</option>
