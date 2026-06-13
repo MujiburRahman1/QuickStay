@@ -15,6 +15,7 @@ export const AppProvider = ({ children }) => {
 
   const [isOwner, setIsOwner] = useState(false);
   const [showHotelReg, setShowHotelReg] = useState(false);
+  const [searchedCities, setSearchedCities] = useState([]);
 
   const fetchUser = async () => {
     try {
@@ -23,6 +24,7 @@ export const AppProvider = ({ children }) => {
       });
       if (data.success) {
         setIsOwner(data.role === "hotelOwner");
+        setSearchedCities(data.recentSearchedCities)
       }
     } catch (error) {}
   };
