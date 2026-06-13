@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUser, useAuth } from "@clerk/clerk-react";
+import { useUser, useAuth } from "@clerk/react";
 import { toast } from 'react-hot-toast'
 
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
@@ -57,7 +57,7 @@ export const AppProvider = ({ children }) => {
     setSearchedCities
   };
 
-  return <AppContext value={value}>{children}</AppContext>;
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
 
 export const useAppContext = () => useContext(AppContext);
