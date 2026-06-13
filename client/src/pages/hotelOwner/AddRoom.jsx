@@ -43,7 +43,7 @@ const AddRoom = () => {
     try {
       const formData = new FormData();
       formData.append("roomType", inputs.roomType);
-      formData.append("pricePerNight", inputs.roompricePerNightType);
+      formData.append("pricePerNight", inputs.pricePerNight);
       // Converting Amenitities to Array & Keeping only enabled amenities
       const amenities = Object.keys(inputs.amenities).filter(
         (key) => inputs.amenities[key],
@@ -56,7 +56,7 @@ const AddRoom = () => {
       });
 
       const { data } = await axios.post("/api/rooms/", formData, {
-        headers: { Authorization: `Bearer ${await getToken}` },
+        headers: { Authorization: `Bearer ${await getToken()}` },
       });
 
       if (data.success) {
@@ -80,6 +80,8 @@ const AddRoom = () => {
     } catch (error) {
         toast.error(error.message);
 
+    }finally{
+      setLoading(false);
     }
   };
 
@@ -171,8 +173,8 @@ const AddRoom = () => {
           </div>
         ))}
       </div>
-      <button className="bg-primary text-white px-8 py-2 rounded mt-8 cursor-pointer">
-        Add Room
+      <button className="bg-primary text-white px-8 py-2 rounded mt-8 cursor-pointer" disabled={loading}>
+       { loading ? 'Adding...' : "Add Room" }
       </button>
     </form>
   );
