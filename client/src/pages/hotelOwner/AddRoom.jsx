@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Form } from "react-router-dom";
 import Title from "../../components/Title";
 import { assets } from "../../assets/assets";
 import toast from "react-hot-toast";
+import { useAppContext } from "../../context/AppContext";
 
 const AddRoom = () => {
-  const { axios, getToken } = useState();
+  const { axios, getToken } = useAppContext();
   const [images, setImages] = useState({
     1: null,
     2: null,
@@ -51,12 +51,18 @@ const AddRoom = () => {
       formData.append("amenities", JSON.stringify(amenities));
 
       // Adding Images to formdata
-      object.keys(images).forEach((key) => {
+      Object.keys(images).forEach((key) => {
         images[key] && formData.append("images", images[key]);
       });
 
+      const token = await getToken();
+      if (!token) {
+        toast.error("Please sign in first");
+        return;
+      }
+
       const { data } = await axios.post("/api/rooms/", formData, {
-        headers: { Authorization: `Bearer ${await getToken()}` },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       if (data.success) {
