@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { assets } from "../assets/assets";
-import { useClerk, useUser, UserButton } from "@clerk/react";
+import { useClerk, UserButton } from "@clerk/react";
 import { useAppContext } from "../context/AppContext";
 
 const BookIcon = () => (
@@ -35,10 +35,10 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { openSignIn } = useClerk();
-  
+
   const location = useLocation();
 
-  const {user, navigate} = useAppContext()
+  const { user, navigate, isOwner, setShowHotelReg } = useAppContext();
 
   useEffect(() => {
     if (location.pathname !== "/") {
@@ -83,12 +83,18 @@ const Navbar = () => {
             />
           </a>
         ))}
-        <button
-          className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer ${isScrolled ? "text-black" : "text-white"} transition-all`}
-          onClick={() => navigate("/owner")}
-        >
-          Dashborad
-        </button>
+
+        {user && (
+          <button
+            className={`border px-4 py-1 text-sm font-light rounded-full cursor-pointer 
+            ${isScrolled ? "text-black" : "text-white"} transition-all`}
+            onClick={() =>
+              isOwner ? navigate("/owner") : setShowHotelReg(true)
+            }
+          >
+            {isOwner ? `Dashborad` : "List Your Hotel"}
+          </button>
+        )}
       </div>
 
       {/* Desktop Right */}
