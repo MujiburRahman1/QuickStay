@@ -38,6 +38,18 @@ const AddRoom = () => {
     setLoading(true);
     try {
       const formData = new FormData()
+      formData.append('roomType', inputs.roomType)
+      formData.append('pricePerNight', inputs.roompricePerNightType)
+      // Converting Amenitities to Array & Keeping only enabled amenities
+      const amenities = Object.keys(inputs.amenities).filter(key => inputs.amenities[key])
+      formData.append('amenities', JSON.stringify(amenities))
+
+      // Adding Images to formdata
+      object.keys(images).forEach((key)=>{
+        images[key] && formData.append('images', images[key])
+      })
+
+      const { data } = await axios.post('/api/rooms/', formData, {headers: {Authorization: `Bearer ${await getToken}`}})
     } catch (error) {
       
     }
