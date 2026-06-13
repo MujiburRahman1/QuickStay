@@ -25,8 +25,15 @@ export const AppProvider = ({ children }) => {
       if (data.success) {
         setIsOwner(data.role === "hotelOwner");
         setSearchedCities(data.recentSearchedCities)
+      }else{
+        // Retry Fetching User Details after 5 seconds
+        setTimeout(() => {
+            fetchUser()
+        }, 5000);
       }
-    } catch (error) {}
+    } catch (error) {
+        
+    }
   };
 
   const value = {
