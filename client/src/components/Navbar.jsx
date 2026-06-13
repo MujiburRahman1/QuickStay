@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { useClerk, useUser, UserButton } from "@clerk/react";
+import { useAppContext } from "../context/AppContext";
 
 const BookIcon = () => (
   <svg
@@ -34,9 +35,10 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const { openSignIn } = useClerk();
-  const { user } = useUser();
-  const navigate = useNavigate();
+  
   const location = useLocation();
+
+  const {user, navigate} = useAppContext()
 
   useEffect(() => {
     if (location.pathname !== "/") {
