@@ -56,10 +56,21 @@ export const getRooms = async (req, res) => {
 export const getOwnerRooms = async (req, res) => {
   try {
     const hotelData = await Hotel.findOne({ owner: req.user._id });
-    const rooms = await Room.find({ hotel: hotelData._id.toString() }).populate(
-      "hotel",
-    );
-    res.json({ success: true, rooms });
+    if (!hotelData) {
+      return res.json({ success: false, message: "No Hotel found" });
+    }
+
+    const rooms = await Room.find({ hotel: hotelData._id.toString() })
+      .populate("hotel")
+      .sort({ createdAt: -1 })
+      .lean();
+
+    const normalizedRooms = rooms.map((room) => ({
+      ...room,
+      isAvailable: room.isAvailable ?? room.isAvailabe ?? true,
+    }));
+
+    res.json({ success: true, rooms: normalizedRooms });
   } catch (error) {
     res.json({ success: false, message: error.message });
   }
@@ -70,9 +81,15 @@ export const toggleRoomAvailability = async (req, res) => {
   try {
     const { roomId } = req.body;
     const roomData = await Room.findById(roomId);
-    roomData.isAvailable = !roomData.isAvailable;
+    if (!roomData) {
+      return res.json({ success: false, message: "Room not found" });
+    }
+
+    const isCurrentlyAvailable =
+      roomData.isAvailable ?? roomData.isAvailabe ?? true;
+    roomData.isAvailable = !isCurrentlyAvailable;
     await roomData.save();
-    res.json({ success: true, message: "Room availability updated "})
+    res.json({ success: true, message: "Room availability updated " });
   } catch (error) {
     res.json({ success: false, message: error.message });
   }
