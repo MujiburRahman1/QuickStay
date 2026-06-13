@@ -26,7 +26,7 @@ const HotelReg = () => {
             toast.error(data.message)
         }
         } catch (error) {
-            
+            toast.error(error.message)
         }
     }
 
@@ -44,7 +44,7 @@ const HotelReg = () => {
                 <label htmlFor="name" className='font-medium text-gray-500'>
                     Hotel Name
                 </label>
-                <input id='name' onChange={()=> setName(e.target.value)} value={name}
+                <input id='name' onChange={(e)=> setName(e.target.value)} value={name}
                 type="text" placeholder='Type here' className='border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light'
                 required />
             </div>
@@ -53,7 +53,7 @@ const HotelReg = () => {
                 <label htmlFor="contact" className='font-medium text-gray-500'>
                     Phone
                 </label>
-                <input onChange={()=> setContact(e.target.value)} value={contact} id='contact' type="text" placeholder='Type here' className='border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light'
+                <input onChange={(e)=> setContact(e.target.value)} value={contact} id='contact' type="text" placeholder='Type here' className='border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light'
                 required />
             </div>
 
@@ -62,7 +62,7 @@ const HotelReg = () => {
                 <label htmlFor="address" className='font-medium text-gray-500'>
                     Address
                 </label>
-                <input onChange={()=> setAddress(e.target.value)} value={address} id='address' type="text" placeholder='Type here' className='border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light'
+                <input onChange={(e)=> setAddress(e.target.value)} value={address} id='address' type="text" placeholder='Type here' className='border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light'
                 required />
             </div>
             {/* Select  City Drop Down */}
@@ -70,7 +70,7 @@ const HotelReg = () => {
                 <label htmlFor="city" className='font-medium text-gray-500'>
                     City
                 </label>
-                <select onChange={()=> setCity(e.target.value)} value={city} id="city" className='border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light'>
+                <select onChange={(e)=> setCity(e.target.value)} value={city} id="city" className='border border-gray-200 rounded w-full px-3 py-2.5 mt-1 outline-indigo-500 font-light'>
                     <option value="">Select City</option>
                     {cities.map((city)=>(
                         <option key={city} value={city}>{city}</option>
