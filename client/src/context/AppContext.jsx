@@ -1,7 +1,8 @@
 import axios from "axios";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser, useAuth } from "@clerk/clerk-react";
+import { toast } from 'react-hot-toast'
 
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
@@ -32,9 +33,15 @@ export const AppProvider = ({ children }) => {
         }, 5000);
       }
     } catch (error) {
-        
+        toast.error(error.message)
     }
   };
+
+  useEffect(()=>{
+    if(user){
+        fetchUser();
+    }
+  },[user])
 
   const value = {
     currency,
@@ -46,6 +53,8 @@ export const AppProvider = ({ children }) => {
     axios,
     showHotelReg,
     setShowHotelReg,
+    searchedCities,
+    setSearchedCities
   };
 
   return <AppContext value={value}>{children}</AppContext>;
