@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { assets, cities } from '../assets/assets'
 import { useAppContext } from '../context/AppContext'
+import toast from 'react-hot-toast'
 
 const HotelReg = () => {
 
@@ -15,6 +16,15 @@ const HotelReg = () => {
         try {
             event.preventDefault();
             const {data} = await axios.post(`/api/hotels/`, {name, contact, address, city}, {headers: {Authorization: `Bearer ${await getToken()}`}})
+        
+        if(data.success){
+            toast.success(data.message)
+            setIsOwner(true)
+            setShowHotelReg(false);
+
+        }else{
+            toast.error(data.message)
+        }
         } catch (error) {
             
         }
