@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Title from '../../components/Title'
 import { useAppContext } from '../../context/AppContext'
 import toast from 'react-hot-toast'
+import axios from 'axios'
 
 const ListRoom = () => {
 
@@ -49,6 +50,17 @@ const ListRoom = () => {
       }
     }
 
+    // toggle availability of the room
+    const toggleAvailability = async (roomId) => {
+      const {data} = await axios.post('/api/rooms/toggle-availability', {roomId}, { headers: { Authorization: `Bearer ${token}` } })
+      if(data.success) {
+        toast.success(data.message)
+        fetchRooms()
+      }else{
+        toast.error(data.message)
+      }
+    }
+
     useEffect(() => {
       if (user) {
         fetchRooms()
@@ -93,6 +105,7 @@ const ListRoom = () => {
                     <td className='py-3 px-4 border-t border-gray-300 text-sm text-red-500 text-center'>
                       <label className='relative inline-flex items-center cursor-pointer text-gray-900 gap-3'>
                         <input
+                          onChange={()=> toggleAvailability(item._id)}
                           type="checkbox"
                           className='sr-only peer'
                           checked={item.isAvailable ?? true}
