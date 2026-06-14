@@ -45,8 +45,12 @@ export const getRooms = async (req, res) => {
           select: "image",
         },
       })
-      .sort({ createdAt: -1 });
-    res.json({ success: true, rooms });
+      .sort({ createdAt: -1 })
+      .lean();
+
+    const validRooms = rooms.filter((room) => room.hotel);
+
+    res.json({ success: true, rooms: validRooms });
   } catch (error) {
     res.json({ success: false, message: error.message });
   }
