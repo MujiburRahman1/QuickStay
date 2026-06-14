@@ -109,13 +109,13 @@ const AllRooms = () => {
     return 0;
   };
 
+  const activeDestination =
+    searchParams.get("destination") || searchParams.get("destinaion");
+
   const filterDestination = (room) => {
-    const destination =
-      searchParams.get("destination") || searchParams.get("destinaion");
-    if (!destination) return true;
-    return room.hotel?.city
-      ?.toLowerCase()
-      .includes(destination.toLowerCase());
+    if (!activeDestination) return true;
+    const query = activeDestination.trim().toLowerCase();
+    return room.hotel?.city?.toLowerCase().includes(query);
   };
 
   const filteredRooms = useMemo(() => {
@@ -127,7 +127,7 @@ const AllRooms = () => {
           filterDestination(room),
       )
       .sort(sortRooms);
-  }, [rooms, selectedFilters, selectedSort, searchParams]);
+  }, [rooms, selectedFilters, selectedSort, activeDestination]);
 
   const clearFilters = () => {
     setSelectedFilters({
@@ -154,7 +154,9 @@ const AllRooms = () => {
 
         {filteredRooms.length === 0 ? (
           <p className="text-gray-500 mt-10">
-            No rooms available at the moment.
+            {activeDestination
+              ? `No rooms found in "${activeDestination}". Try another city or clear filters.`
+              : "No rooms available at the moment."}
           </p>
         ) : (
           filteredRooms.map((room) => (
