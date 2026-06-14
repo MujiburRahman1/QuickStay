@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { assets, facilityIcons, roomsDummyData } from "../assets/assets";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import StarRating from "../components/StarRating";
+import { useAppContext } from "../context/AppContext";
 
 const CheckBox = ({label, selected = false, onChange = () => { }})=>{
   return (
@@ -22,8 +23,15 @@ const RadioButton = ({label, selected = false, onChange = () => { }})=>{
 }
 
 const AllRooms = () => {
-  const navigate = useNavigate();
+  const [searchParams, setSearchedParams] = useSearchParams()
+  const {rooms, navigate, currency} = useAppContext();
+  
   const [openFilters, setOpenFilters] = useState(false);
+  const [selectedFilters, setSelectedFilters] = useState({
+    roomType: [],
+    priceRange: [],
+  });
+  const [selectedSort, setSelectedSort] = useState('')
 
   const roomTypes = [
     "Single Bed", 
@@ -43,6 +51,59 @@ const AllRooms = () => {
     "Price High to Low",
     "Newset First",
   ];
+
+  // Handle changes for filters and sorting
+  const handleFilterChange = (checked, value, type) =>{
+    setSelectedFilters((prevFilters)=>{
+      const updatedFilters = {...prevFilters};
+      if(checked){
+        updatedFilters[type].push(value)
+      }else{
+        updatedFilters[type] = updatedFilters[type].filter(item => item != value);
+      }
+      return updatedFilters;
+    })
+  }
+
+  const handleSortChange = (sortOption)=>{
+    setSelectedSort(sortOption);
+  }
+
+  // Function to check if a room matches the selected room types
+  const matchesRoomType = (room)=>{
+    return selectedFilters.roomType.lenght === 0 || selectedFilters.roomType.includes(room.roomType);
+  }
+
+  // Function to check if a room matches the selected price ranges
+  const matchesPriceRange = (room)=>{
+    return selectedFilters.priceRange.length === 0 || selectedFilters.priceRange.some(range => {
+      const [min, max] = range.split(' to ').map(Number);
+      return room.pricePerNight >= min && room.pricePerNight <= max;
+    })
+  }
+
+  // Function to sort rooms based on the selected sort option
+  const sortRooms = (a, b) =>{
+    if (selectedSort === 'Price Low to High'){
+      return a.pricePerNight - b.pricePerNight;
+    }
+    if(selectedSort === 'Price High to Low'){
+      return b.pricePerNight - a.pricePerNight;
+
+    }
+    if(selectedSort === 'Newset First'){
+      return new Date(b.createdAt) - new Date(a.createdAt)
+    }
+    return 0;
+  }
+
+  // Filter Destination
+  const filterDestination = (room) => {
+    const destination = searchParams.get('destinaion');
+      if(!destination) return true;
+      return room.hotel.city.toLowerCase().includes(destination.toLowerCase())
+    
+  }
 
   return (
     <div
