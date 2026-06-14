@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Title from '../../components/Title'
 import { assets } from '../../assets/assets'
 import { useAppContext } from '../../context/AppContext'
@@ -13,7 +13,24 @@ const Dashboard = () => {
     totalRevenue: 0,
   })
 
-  const fetch
+  const fetchDashboardData = async () => {
+    try {
+      const { data } = await axios.get('/api/bookings/hotel',  { headers: { Authorization: `Bearer ${token}` },})
+      if(data.success){
+        setDashboardData(data.dashboardData)
+      }else{
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+
+  useEffect(()=>{
+      if (user) {
+        fetchDashboardData();
+      }
+  },[user])
 
   return (
     <div>
