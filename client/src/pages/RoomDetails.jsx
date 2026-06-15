@@ -177,7 +177,8 @@ const RoomDetails = () => {
         </p>
       </div>
 
-      <form
+      {/* CheckIn CheckOut Form */}
+      <form onSubmit={onSubmitHandler}
         className="flex flex-col md:flex-row items-start md:items-center 
         justify-between bg-white shadow-[0px_0px_20px_rgba(0,0,0,0.15)] p-6 rounded-xl mx-auto mt-16 max-w-6xl"
       >
