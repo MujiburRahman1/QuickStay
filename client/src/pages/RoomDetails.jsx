@@ -4,6 +4,7 @@ import { assets, facilityIcons, roomCommonData } from "../assets/assets";
 import StarRating from "../components/StarRating";
 import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
+import { getToken } from "@clerk/react";
 
 const RoomDetails = () => {
   const { id } = useParams();
@@ -31,11 +32,36 @@ const RoomDetails = () => {
           toast.success('Room is available')
         }else{
           setIsAvailable(false)
-          toast.error('Room is available')
+          toast.error('Room is not available')
+        }
+      }else{
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+
+  // onSubmitHandler function to check availability & book the room
+  const onSubmitHandler = async (e) => {
+    try {
+      e.preventDefault();
+      if(!isAvailable){
+        return checkAvailability();
+      }else{
+        const { data } = await axios.post('/api/bookings/book', {room: id, checkInDate, checkOutDate, guests, 
+          paymentMethod: "Pay At Hotel"
+        }, {headers: { Authorization: `Bearer ${await getToken()}`}})
+        if (data.success){
+          toast.success(data.message)
+          navigate('my-bookings')
+          scrollTo(0, 0)
+        }else{
+          toast.error(data.message)
         }
       }
     } catch (error) {
-      
+      toast.error(error.message)
     }
   }
 
