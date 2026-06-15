@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { assets, facilityIcons, roomCommonData } from "../assets/assets";
 import StarRating from "../components/StarRating";
 import { useAppContext } from "../context/AppContext";
@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { getToken } from "@clerk/react";
 
 const RoomDetails = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { axios, currency } = useAppContext();
   const [room, setRoom] = useState(null);
@@ -25,17 +26,22 @@ const RoomDetails = () => {
         toast.error('Check-In-Date should be less than Check-Out-Date')
         return;
       }
-      const {data} = await axios.post('/api/bookings/check-availability', {room: id, checkInDate, checkOutDate})
-      if(data.success){
-        if(data.isAvailable){
-          setIsAvailable(true)
-          toast.success('Room is available')
-        }else{
-          setIsAvailable(false)
-          toast.error('Room is not available')
+      const { data } = await axios.post(
+        '/api/bookings/check-availability',
+        { room: id, checkInDate, checkOutDate },
+      );
+
+      if (data.success) {
+        const available = data.isAvailable ?? data.isAvailabe;
+        if (available) {
+          setIsAvailable(true);
+          toast.success('Room is available');
+        } else {
+          setIsAvailable(false);
+          toast.error('Room is not available');
         }
-      }else{
-        toast.error(data.message)
+      } else {
+        toast.error(data.message);
       }
     } catch (error) {
       toast.error(error.message)
@@ -53,9 +59,9 @@ const RoomDetails = () => {
           paymentMethod: "Pay At Hotel"
         }, {headers: { Authorization: `Bearer ${await getToken()}`}})
         if (data.success){
-          toast.success(data.message)
-          navigate('my-bookings')
-          scrollTo(0, 0)
+          toast.success(data.message);
+          navigate('/my-bookings');
+          scrollTo(0, 0);
         }else{
           toast.error(data.message)
         }
