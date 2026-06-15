@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Title from "../components/Title";
 import { assets, userBookingsDummyData } from "../assets/assets";
+import { useAppContext } from "../context/AppContext";
+import toast from "react-hot-toast";
 
 const MyBookings = () => {
   const [bookings, setBookings] = useState(userBookingsDummyData);
