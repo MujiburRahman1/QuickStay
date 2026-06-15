@@ -16,6 +16,29 @@ const RoomDetails = () => {
   const [guests, setGuests] = useState(1);
   const [isAvailable, setIsAvailable] = useState(false);
 
+  // Check If the Room is Available
+  const checkAvailability = async () => {
+    try {
+      // Check is Check-In-Date is greater than Check-Out-Date
+      if(checkInDate >= checkOutDate){
+        toast.error('Check-In-Date should be less than Check-Out-Date')
+        return;
+      }
+      const {data} = await axios.post('/api/bookings/check-availability', {room: id, checkInDate, checkOutDate})
+      if(data.success){
+        if(data.isAvailable){
+          setIsAvailable(true)
+          toast.success('Room is available')
+        }else{
+          setIsAvailable(false)
+          toast.error('Room is available')
+        }
+      }
+    } catch (error) {
+      
+    }
+  }
+
   useEffect(() => {
     const fetchRoom = async () => {
       setLoading(true);
