@@ -11,6 +11,10 @@ const RoomDetails = () => {
   const [room, setRoom] = useState(null);
   const [mainImage, setMainImage] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [checkInDate, setCheckInDate] = useState(null);
+  const [checkOutDate, setCheckOutDate] = useState(null);
+  const [guests, setGuests] = useState(1);
+  const [isAvailable, setIsAvailable] = useState(false);
 
   useEffect(() => {
     const fetchRoom = async () => {
@@ -134,8 +138,11 @@ const RoomDetails = () => {
               Check-In
             </label>
             <input
+              onChange={(e) => setCheckInDate(e.target.value)}
+              min={new Date().toISOString().split("T")[0]}
               type="date"
               id="checkInDate"
+              placeholder="Check-In"
               className="w-full rounded border border-gray-300 px-3 py-2 mt-1.5 outline-none"
               required
             />
@@ -147,6 +154,9 @@ const RoomDetails = () => {
               Check-Out
             </label>
             <input
+              onChange={(e) => setCheckOutDate(e.target.value)}
+              min={checkInDate}
+              disabled={!checkInDate}
               type="date"
               id="checkOutDate"
               className="w-full rounded border border-gray-300 px-3 py-2 mt-1.5 outline-none"
@@ -161,6 +171,8 @@ const RoomDetails = () => {
               Guests
             </label>
             <input
+              onChange={(e) => setGuests(e.target.value)}
+              value={guests}
               type="number"
               id="guests"
               min={1}
@@ -175,18 +187,14 @@ const RoomDetails = () => {
           className="bg-primary hover:bg-primary-dull active:scale-95 transition-all text-white rounded-md
           max-md:w-full max-md:mt-6 md:px-25 py-3 md:py-4 text-base cursor-pointer"
         >
-          Check Availability
+          {isAvailable ? "Book Now" : "Check Availability"}
         </button>
       </form>
 
       <div className="mt-25 space-y-4">
         {roomCommonData.map((spec, index) => (
           <div key={index} className="flex items-start gap-2">
-            <img
-              src={spec.icon}
-              alt={`${spec.title}-icon`}
-              className="w-6.5"
-            />
+            <img src={spec.icon} alt={`${spec.title}-icon`} className="w-6.5" />
             <div>
               <p className="text-base">{spec.title}</p>
               <p className="text-gray-500">{spec.description}</p>
@@ -197,8 +205,9 @@ const RoomDetails = () => {
 
       <div className="max-w-3xl border-y border-gray-300 my-15 py-10 text-gray-500">
         <p>
-          Guests will be allocated on the ground floor according to availability.
-          You get a comfortable two-bedroom apartment that has a true city feeling.
+          Guests will be allocated on the ground floor according to
+          availability. You get a comfortable two-bedroom apartment that has a
+          true city feeling.
         </p>
       </div>
 
