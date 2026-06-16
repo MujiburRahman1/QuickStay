@@ -2,7 +2,7 @@ import transporter from "../configs/nodemailer.js";
 import Booking from "../models/Booking.js";
 import Hotel from "../models/Hotel.js";
 import Room from "../models/Room.js";
-
+import User from "../models/User.js";
 // Function to Check Availability of Room
 const checkAvailability = async ({ checkInDate, checkOutDate, room }) => {
   const checkIn = new Date(checkInDate);
@@ -131,10 +131,9 @@ export const getHotelBookings = async (req, res) => {
     if (!hotel) {
       return res.json({ success: false, message: "No Hotel found" });
     }
-    const bookings = await Bookings.find({ hotel: hotel._id })
+    const bookings = await Booking.find({ hotel: hotel._id.toString() })
       .populate("room hotel user")
-      .sort({ createdAt: -1 });
-    // Total Bookings
+      .sort({ createdAt: -1 });    // Total Bookings
     const totalBookings = bookings.length;
     // Total Revenue
     const totalRevenue = bookings.reduce(
