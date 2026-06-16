@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import Title from '../../components/Title'
 import { assets } from '../../assets/assets'
 import { useAppContext } from '../../context/AppContext'
+import toast from 'react-hot-toast'
 
 const Dashboard = () => {
 
-  const { currency, user, getToken, toast, axios } = useAppContext();
+  const { currency, user, getToken, axios } = useAppContext();
 
   const [dashboardData, setDashboardData] = useState({
     bookings: [],
@@ -15,10 +16,15 @@ const Dashboard = () => {
 
   const fetchDashboardData = async () => {
     try {
-      const { data } = await axios.get('/api/bookings/hotel',  { headers: { Authorization: `Bearer ${token}` },})
-      if(data.success){
+      const token = await getToken()
+      if (!token) return
+
+      const { data } = await axios.get('/api/bookings/hotel', {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      if (data.success) {
         setDashboardData(data.dashboardData)
-      }else{
+      } else {
         toast.error(data.message)
       }
     } catch (error) {
