@@ -92,9 +92,9 @@ export const creatBooking = async (req, res) => {
 export const getUserBookings = async (req, res) => {
   try {
     const user = req.user._id;
-    const bookings = (
-      await Booking.find({ user }).populate("room hotel")
-    ).toSorted({ createdAt: -1 });
+    const bookings = await Booking.find({ user })
+      .populate("room hotel")
+      .sort({ createdAt: -1 });
     res.json({ success: true, bookings });
   } catch (error) {
     res.json({ success: false, message: "Failed to fetch bookings" });
