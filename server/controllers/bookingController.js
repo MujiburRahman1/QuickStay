@@ -5,13 +5,17 @@ import Room from "../models/Room.js";
 import User from "../models/User.js";
 import stripe from "stripe";
 
-
 // Function to Check Availability of Room
 const checkAvailability = async ({ checkInDate, checkOutDate, room }) => {
   const checkIn = new Date(checkInDate);
   const checkOut = new Date(checkOutDate);
 
-  if (!room || isNaN(checkIn.getTime()) || isNaN(checkOut.getTime()) || checkIn >= checkOut) {
+  if (
+    !room ||
+    isNaN(checkIn.getTime()) ||
+    isNaN(checkOut.getTime()) ||
+    checkIn >= checkOut
+  ) {
     return false;
   }
 
@@ -23,7 +27,7 @@ const checkAvailability = async ({ checkInDate, checkOutDate, room }) => {
     });
     const isAvailable = bookings.length === 0;
     return isAvailable;
-  }catch (error) {
+  } catch (error) {
     console.error(error.message);
   }
 };
@@ -110,7 +114,10 @@ export const creatBooking = async (req, res) => {
     res.json({ success: true, message: "Booking created successfully" });
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: error.message || "Failed to create booking" });
+    res.json({
+      success: false,
+      message: error.message || "Failed to create booking",
+    });
   }
 };
 
@@ -136,7 +143,7 @@ export const getHotelBookings = async (req, res) => {
     }
     const bookings = await Booking.find({ hotel: hotel._id.toString() })
       .populate("room hotel user")
-      .sort({ createdAt: -1 });    // Total Bookings
+      .sort({ createdAt: -1 }); // Total Bookings
     const totalBookings = bookings.length;
     // Total Revenue
     const totalRevenue = bookings.reduce(
@@ -149,48 +156,44 @@ export const getHotelBookings = async (req, res) => {
     });
   } catch (error) {
     res.json({ success: false, message: "Failed to fetch bookings" });
-   
   }
 };
-
 
 export const stripePayment = async (req, res) => {
   try {
     const { bookingId } = req.body;
 
     const booking = await Booking.findById(bookingId);
-    const roomData = await Room.findById(booking.room).populate('hotel');
+    const roomData = await Room.findById(booking.room).populate("hotel");
     const totalPrice = booking.totalPrice;
     const { origin } = req.headers;
 
-    const stripeInstance = new stripe(process.env.STRIPE_SECRET_KEY)
+    const stripeInstance = new stripe(process.env.STRIPE_SECRET_KEY);
 
     const line_items = [
       {
-        price_data:{
+        price_data: {
           currency: "usd",
-          product_data:{
+          product_data: {
             name: roomData.hotel.name,
           },
-          unit_amount: totalPrice * 100
+          unit_amount: totalPrice * 100,
         },
         quantity: 1,
-      }
-    ]
+      },
+    ];
     // Create CheckOut Session
     const session = await stripeInstance.checkout.sessions.create({
       line_items,
       mode: "payment",
       success_url: `${origin}/loader/my-bookings`,
       cancel_url: `${origin}/my-bookings`,
-      metadata:{
+      metadata: {
         bookingId,
-      }
-    })
-    res.json({success: true, url: session.url})
-
-    
+      },
+    });
+    res.json({ success: true, url: session.url });
   } catch (error) {
-    res.json({success: false, message: "Payment Failed"})
+    res.json({ success: false, message: "Payment Failed" });
   }
-}
+};
