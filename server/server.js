@@ -10,11 +10,16 @@ import connectCloudinary from "./configs/cloudinary.js";
 import roomRouter from "./routes/roomRoutes.js";
 import bookingRouter from "./routes/bookingRoutes.js";
 
+import { stripeWebhooks } from "./controllers/stripeWebhooks.js";
+
 connectDB();
 connectCloudinary();
 
 const app = express();
 app.use(cors()); // Enable Cross-Origin Resource Sharing
+
+// API to listen to Stripe WebHooks
+app.post('/api/stripe', express.raw({type: "application/json" }), stripeWebhooks);
 
 // Clerk webhook needs raw body for signature verification
 app.post("/api/clerk", express.raw({ type: "application/json" }), clerkWehooks);
