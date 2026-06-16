@@ -8,12 +8,7 @@ const checkAvailability = async ({ checkInDate, checkOutDate, room }) => {
   const checkIn = new Date(checkInDate);
   const checkOut = new Date(checkOutDate);
 
-  if (
-    !room ||
-    isNaN(checkIn.getTime()) ||
-    isNaN(checkOut.getTime()) ||
-    checkIn >= checkOut
-  ) {
+  if (!room || isNaN(checkIn.getTime()) || isNaN(checkOut.getTime()) || checkIn >= checkOut) {
     return false;
   }
 
@@ -25,7 +20,7 @@ const checkAvailability = async ({ checkInDate, checkOutDate, room }) => {
     });
     const isAvailable = bookings.length === 0;
     return isAvailable;
-  } catch (error) {
+  }catch (error) {
     console.error(error.message);
   }
 };
@@ -86,11 +81,12 @@ export const creatBooking = async (req, res) => {
       totalPrice,
     });
 
-    const mailOptions = {
-      from: process.env.SENDER_EMAIL,
-      to: req.user.email,
-      subject: "Hotel Booking Details",
-      html: `
+    try {
+      const mailOptions = {
+        from: process.env.SENDER_EMAIL,
+        to: req.user.email,
+        subject: "Hotel Booking Details",
+        html: `
           <h2>Your Booking Details</h2>
           <p>Dear ${req.user.username},</p>
           <p>Thank you for your Booking! Here are your details:</p>
@@ -98,21 +94,20 @@ export const creatBooking = async (req, res) => {
               <li><strong>Booking ID:</strong> ${booking._id}</li>
               <li><strong>Hotel Name:</strong> ${roomData.hotel.name}</li>
               <li><strong>Location:</strong> ${roomData.hotel.address}</li>
-              <li><strong>Date:</strong> ${booking.chekInDate.toDateString()}</li>
-              <li><strong>Booking Amount:</strong> ${process.env.CURRENCY || '$'} ${booking.totalPrice} /night</li>
-              
-
-              
-
+              <li><strong>Date:</strong> ${booking.checkInDate.toDateString()}</li>
+              <li><strong>Booking Amount:</strong> ${process.env.CURRENCY || "$"} ${booking.totalPrice}</li>
           </ul>
       `,
-    };
-    await transporter.sendMail(mailOptions);
+      };
+      await transporter.sendMail(mailOptions);
+    } catch (emailError) {
+      console.error("Booking email failed:", emailError.message);
+    }
 
     res.json({ success: true, message: "Booking created successfully" });
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: "Failed to create booking" });
+    res.json({ success: false, message: error.message || "Failed to create booking" });
   }
 };
 
@@ -152,5 +147,6 @@ export const getHotelBookings = async (req, res) => {
     });
   } catch (error) {
     res.json({ success: false, message: "Failed to fetch bookings" });
+   
   }
 };
