@@ -4,15 +4,22 @@ import Room from "../models/Room.js";
 
 // Function to Check Availability of Room
 const checkAvailability = async ({ checkInDate, checkOutDate, room }) => {
+  const checkIn = new Date(checkInDate);
+  const checkOut = new Date(checkOutDate);
+
+  if (!room || isNaN(checkIn.getTime()) || isNaN(checkOut.getTime()) || checkIn >= checkOut) {
+    return false;
+  }
+
   try {
     const bookings = await Booking.find({
       room,
-      checkInDate: { $lte: checkOutDate },
-      checkOutDate: { $gte: checkInDate },
+      checkInDate: { $lte: checkOut },
+      checkOutDate: { $gte: checkIn },
     });
-    const isAvailable = bookings.length === 0;
+    const isAvailable = bookings.lenght === 0;
     return isAvailable;
-  } catch (error) {
+  }catch (error) {
     console.error(error.message);
   }
 };
