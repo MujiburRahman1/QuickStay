@@ -17,7 +17,7 @@ const checkAvailability = async ({ checkInDate, checkOutDate, room }) => {
       checkInDate: { $lte: checkOut },
       checkOutDate: { $gte: checkIn },
     });
-    const isAvailable = bookings.lenght === 0;
+    const isAvailable = bookings.length === 0;
     return isAvailable;
   }catch (error) {
     console.error(error.message);
