@@ -436,6 +436,3 @@ Deploy the `server/` folder to Vercel. Set all server environment variables in V
 
 ---
 
-## License
-
-ISC
