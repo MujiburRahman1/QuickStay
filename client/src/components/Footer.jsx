@@ -3,8 +3,8 @@ import { assets } from "../assets/assets";
 
 const Footer = () => {
   return (
-    <div className="bg-[#F6F9FC] text-gray-500/80 pt-8 px-6 md:px-16 lg:px-24 xl:px-32">
-      <div className="flex flex-wrap justify-between gap-12 md:gap-6">
+    <div className="bg-[#F6F9FC] text-gray-500/80 pt-8 px-4 sm:px-6 md:px-16 lg:px-24 xl:px-32">
+      <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
         <div className="max-w-80">
           <img src={assets.logo} alt="logo" className="mb-4 h-8 md:h-9 invert opacity-80" />
           <p className="text-sm">
@@ -82,10 +82,10 @@ const Footer = () => {
           <p className="mt-3 text-sm">
             Subscribe to our newsletter for inspiration and special offers.
           </p>
-          <div className="flex items-center mt-4">
+          <div className="flex items-center mt-4 w-full">
             <input
               type="text"
-              className="bg-white rounded-l border border-gray-300 h-9 px-3 outline-none"
+              className="bg-white rounded-l border border-gray-300 h-9 px-3 outline-none min-w-0 flex-1"
               placeholder="Your email"
             />
             <button className="flex items-center justify-center bg-black h-9 w-9 aspect-square rounded-r">
@@ -101,7 +101,7 @@ const Footer = () => {
           © {new Date().getFullYear()}{" "}
           Mujib ur Rahman. All rights reserved.
         </p>
-        <ul className="flex items-center gap-4">
+        <ul className="flex flex-wrap items-center justify-center gap-4">
           <li>
             <a href="#">Privacy</a>
           </li>
