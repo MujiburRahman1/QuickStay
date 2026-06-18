@@ -109,9 +109,9 @@ const RoomDetails = () => {
   }
 
   return (
-    <div className="py-28 md:py-35 px-4 md:px-16 lg:px-24 xl:px-32">
+    <div className="py-28 md:py-35 px-4 sm:px-6 md:px-16 lg:px-24 xl:px-32">
       <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
-        <h1 className="text-3xl md:text-4xl font-playfair">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-playfair">
           {room.hotel?.name}{" "}
           <span className="font-inter text-sm">({room.roomType})</span>
         </h1>
@@ -130,17 +130,17 @@ const RoomDetails = () => {
         <span>{room.hotel?.address}</span>
       </div>
 
-      <div className="flex flex-col lg:flex-row mt-6 gap-6">
+      <div className="flex flex-col lg:flex-row mt-6 gap-4 md:gap-6">
         <div className="lg:w-1/2 w-full">
           {mainImage && (
             <img
               src={mainImage}
               alt="Room"
-              className="w-full rounded-xl shadow-lg object-cover"
+              className="h-72 w-full rounded-xl shadow-lg object-cover sm:h-96 lg:h-full"
             />
           )}
         </div>
-        <div className="grid grid-cols-2 gap-4 lg:w-1/2 w-full">
+        <div className="grid grid-cols-2 gap-3 md:gap-4 lg:w-1/2 w-full">
           {room.images?.length > 1 &&
             room.images.map((image, index) => (
               <img
@@ -148,16 +148,16 @@ const RoomDetails = () => {
                 key={index}
                 src={image}
                 alt="Room"
-                className={`w-full rounded-xl shadow-md object-cover cursor-pointer 
+                className={`h-32 w-full rounded-xl shadow-md object-cover cursor-pointer sm:h-44 md:h-52
                     ${mainImage === image && "outline-3 outline-orange-500"}`}
               />
             ))}
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row md:justify-between mt-10">
+      <div className="flex flex-col gap-6 md:flex-row md:justify-between mt-10">
         <div className="flex flex-col">
-          <h1 className="text-3xl md:text-4xl font-playfair">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-playfair">
             Experience Luxury Like Never Before
           </h1>
           <div className="flex flex-wrap items-center mt-3 mb-6 gap-4">
@@ -185,10 +185,10 @@ const RoomDetails = () => {
 
       {/* CheckIn CheckOut Form */}
       <form onSubmit={onSubmitHandler}
-        className="flex flex-col md:flex-row items-start md:items-center 
-        justify-between bg-white shadow-[0px_0px_20px_rgba(0,0,0,0.15)] p-6 rounded-xl mx-auto mt-16 max-w-6xl"
+        className="flex flex-col lg:flex-row items-start lg:items-center 
+        justify-between gap-6 bg-white shadow-[0px_0px_20px_rgba(0,0,0,0.15)] p-4 sm:p-6 rounded-xl mx-auto mt-12 md:mt-16 max-w-6xl"
       >
-        <div className="flex flex-col flex-wrap md:flex-row items-start md:items-center gap-4 md:gap-10 text-gray-500">
+        <div className="grid w-full grid-cols-1 gap-4 text-gray-500 sm:grid-cols-2 lg:flex lg:flex-wrap lg:items-center lg:gap-8">
           <div className="flex flex-col">
             <label htmlFor="checkInDate" className="font-medium">
               Check-In
@@ -203,7 +203,7 @@ const RoomDetails = () => {
               required
             />
           </div>
-          <div className="w-px h-15 bg-gray-300/70 max-md:hidden"></div>
+          <div className="w-px h-15 bg-gray-300/70 max-lg:hidden"></div>
 
           <div className="flex flex-col">
             <label htmlFor="checkOutDate" className="font-medium">
@@ -220,7 +220,7 @@ const RoomDetails = () => {
             />
           </div>
 
-          <div className="w-px h-15 bg-gray-300/70 max-md:hidden"></div>
+          <div className="w-px h-15 bg-gray-300/70 max-lg:hidden"></div>
 
           <div className="flex flex-col">
             <label htmlFor="guests" className="font-medium">
@@ -233,7 +233,7 @@ const RoomDetails = () => {
               id="guests"
               min={1}
               defaultValue={1}
-              className="max-w-20 rounded border border-gray-300 px-3 py-2 mt-1.5 outline-none"
+              className="w-full max-w-28 rounded border border-gray-300 px-3 py-2 mt-1.5 outline-none"
               required
             />
           </div>
@@ -241,13 +241,13 @@ const RoomDetails = () => {
         <button
           type="submit"
           className="bg-primary hover:bg-primary-dull active:scale-95 transition-all text-white rounded-md
-          max-md:w-full max-md:mt-6 md:px-25 py-3 md:py-4 text-base cursor-pointer"
+          w-full lg:w-auto lg:px-16 xl:px-25 py-3 md:py-4 text-base cursor-pointer"
         >
           {isAvailable ? "Book Now" : "Check Availability"}
         </button>
       </form>
 
-      <div className="mt-25 space-y-4">
+      <div className="mt-16 md:mt-25 space-y-4">
         {roomCommonData.map((spec, index) => (
           <div key={index} className="flex items-start gap-2">
             <img src={spec.icon} alt={`${spec.title}-icon`} className="w-6.5" />
@@ -259,7 +259,7 @@ const RoomDetails = () => {
         ))}
       </div>
 
-      <div className="max-w-3xl border-y border-gray-300 my-15 py-10 text-gray-500">
+      <div className="max-w-3xl border-y border-gray-300 my-12 md:my-15 py-8 md:py-10 text-gray-500">
         <p>
           Guests will be allocated on the ground floor according to
           availability. You get a comfortable two-bedroom apartment that has a
