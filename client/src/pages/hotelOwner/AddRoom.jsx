@@ -92,7 +92,7 @@ const AddRoom = () => {
   };
 
   return (
-    <form onSubmit={onSubmitHandler}>
+    <form onSubmit={onSubmitHandler} className="max-w-4xl">
       <Title
         align="left"
         font="outfit"
@@ -101,11 +101,11 @@ const AddRoom = () => {
       />
       {/* Upload Area for Images */}
       <p className="text-gray-800 mt-10">Images</p>
-      <div className="grid grid-cols-2 sm:flex gap-4 my-2 flex-wrap">
+      <div className="grid grid-cols-2 gap-4 my-2 sm:grid-cols-4">
         {Object.keys(images).map((key) => (
           <label htmlFor={`roomImage${key}`} key={key}>
             <img
-              className="max-h-13 cursor-pointer opacity-80"
+              className="h-24 w-full cursor-pointer rounded border border-dashed border-gray-300 object-contain p-2 opacity-80"
               src={
                 images[key]
                   ? URL.createObjectURL(images[key])
@@ -126,8 +126,8 @@ const AddRoom = () => {
         ))}
       </div>
 
-      <div className="w-full flex max-sm:flex-col sm:gap-4 mt-4">
-        <div className="flex-1 max-w-48">
+      <div className="grid w-full grid-cols-1 gap-4 mt-4 sm:grid-cols-2">
+        <div className="w-full">
           <p className="text-gray-800 mt-4">Room Type</p>
           <select
             value={inputs.roomType}
@@ -149,7 +149,7 @@ const AddRoom = () => {
           <input
             type="number"
             placeholder="0"
-            className="border border-gray-300 mt-1 rounded p-2 rounded p-2 w-24"
+            className="border border-gray-300 mt-1 rounded p-2 w-full sm:w-32"
             value={inputs.pricePerNight}
             onChange={(e) =>
               setInputs({ ...inputs, pricePerNight: e.target.value })
@@ -158,7 +158,7 @@ const AddRoom = () => {
         </div>
       </div>
       <p className="text-gray-800 mt-4">Amenities</p>
-      <div className="flex flex-col flex-wrap mt-1 text-gray-400 max-w-sm">
+      <div className="grid grid-cols-1 gap-2 mt-2 text-gray-500 sm:grid-cols-2 max-w-xl">
         {Object.keys(inputs.amenities).map((amenity, index) => (
           <div key={index}>
             <input
@@ -179,7 +179,7 @@ const AddRoom = () => {
           </div>
         ))}
       </div>
-      <button className="bg-primary text-white px-8 py-2 rounded mt-8 cursor-pointer" disabled={loading}>
+      <button className="bg-primary text-white px-8 py-2 rounded mt-8 cursor-pointer w-full sm:w-auto disabled:opacity-60" disabled={loading}>
        { loading ? 'Adding...' : "Add Room" }
       </button>
     </form>
