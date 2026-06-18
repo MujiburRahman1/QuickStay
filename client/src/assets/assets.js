@@ -38,6 +38,7 @@ import listIcon from "./listIcon.svg";
 import uploadArea from "./uploadArea.svg";
 import totalBookingIcon from "./totalBookingIcon.svg";
 import totalRevenueIcon from "./totalRevenueIcon.svg";
+import { City } from "country-state-city";
 
 
 export const assets = {
@@ -76,11 +77,8 @@ export const assets = {
 }
 
 export const cities = [
-    "Dubai",
-    "Singapore",
-    "New York",
-    "London",
-];
+    ...new Set(City.getCitiesOfCountry("PK").map((city) => city.name)),
+].sort();
 
 // Exclusive Offers Dummy Data
 export const exclusiveOffers = [
