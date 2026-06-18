@@ -42,9 +42,9 @@ const Dashboard = () => {
     <div>
       <Title align='left' font='outfit' title='Dashboard'
       subTitle='Monitor your room listings, track bookings and analyze revenue-all in one place. Stay updated with real-time insights to ensure smooth operations.'/>
-        <div className='flex gap-4 my-8'>
+        <div className='grid grid-cols-1 gap-4 my-8 sm:grid-cols-2'>
             {/* Total Bookings */}
-            <div className='bg-primary/3 border border-primary/10 rounded flex p-4 pr-8'>
+            <div className='bg-primary/3 border border-primary/10 rounded flex p-4 sm:pr-8'>
                 <img src={assets.totalBookingIcon} alt="" className='max-sm:hidden h-10' />
                 <div className='flex flex-col sm:ml-4 font-medium'>
                   <p className='text-blue-500 text-lg'>Total Bookings</p>
@@ -53,7 +53,7 @@ const Dashboard = () => {
 
             </div>
             {/* Total Revenue */}
-            <div className='bg-primary/3 border border-primary/10 rounded flex p-4 pr-8'>
+            <div className='bg-primary/3 border border-primary/10 rounded flex p-4 sm:pr-8'>
                 <img src={assets.totalRevenueIcon} alt="" className='max-sm:hidden h-10' />
                 <div className='flex flex-col sm:ml-4 font-medium'>
                   <p className='text-blue-500 text-lg'>Total Revenue</p>
@@ -66,8 +66,8 @@ const Dashboard = () => {
 
         {/* Recent Bookings */}
         <h2 className='text-xl text-blue-950/70 font-medium mb-5'>Recent Bookings</h2>
-        <div className='w-full max-w-3xl text-left border border-gray-300 rounded-lg max-h-80 overflow-y-scroll'>
-          <table className='w-full'>
+        <div className='w-full max-w-3xl overflow-x-auto text-left border border-gray-300 rounded-lg max-h-80'>
+          <table className='w-full min-w-[640px]'>
             <thead className='bg-gray-50'>
               <tr>
                 <th className='py-3 px-4 text-gray-800 font-medium'>User Name</th>
@@ -82,11 +82,11 @@ const Dashboard = () => {
               {dashboardData.bookings.map((item, index)=>(
                 <tr key={index}>
                   <td className='py-3 px-4 text-gray-700 border-t border-gray-300'>
-                    {item.user.username}
+                    {item.user?.username}
                   </td>
 
                   <td className='py-3 px-4 text-gray-700 border-t border-gray-300 max-sm:hidden'>
-                    {item.room.roomType}
+                    {item.room?.roomType}
                   </td>
 
                   <td className='py-3 px-4 text-gray-700 border-t border-gray-300 text-center'>
